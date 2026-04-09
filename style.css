@@ -1,3 +1,80 @@
-h1 {
-    background-color: rebeccapurple;
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+    --bgColor: #201a24f6;
+    --txtColor: #e9d7d7;
+}
+
+* { 
+    box-sizing: border-box;
+    padding: 0px;
+    margin: 0px;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: "Work Sans";
+    background-color: var(--bgColor);
+    color: var(--txtColor);
+}
+
+h1, p {
+    text-align: center;
+    margin-top: 5px;
+}
+
+button {
+    font-size: 16px;
+    padding: 5px;
+    min-width: 25px;
+}
+
+.content {
+    background-color: rgb(22, 21, 21);
+    margin: 50px;
+}
+
+.calc-container {
+    background-color: rgb(203, 203, 182);
+    color: black;
+    width: 300px;
+    
+    border-radius: 10px;
+}
+
+.calc-btn {
+    background-color: yellowgreen;
+    width: 20px;
+    height: 20px;
+}
+
+.display {
+    background-color: aquamarine;
+    height: 50px;
+}
+
+.btn-layout {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.numbers {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    justify-content: center;
+    padding: 10px;
+    background-color: green;
+}
+
+.operators {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+    padding: 10px;
+    background-color: rgb(57, 48, 131);
 }
