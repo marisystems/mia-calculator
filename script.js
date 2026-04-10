@@ -34,10 +34,14 @@ function operate(operator, a, b) {
     }
 }
 
-function updateInput(num) {
+function updateInput(string) {
     let input = document.querySelector("#input")
-    console.log(input.textContent)
-    input.textContent += num;
+    let regexNum = /[0-9]/g 
+
+    if (string.match(regexNum)) {
+        console.log("matches!")
+        input.textContent += string;
+    }
 }
 
 function clearInput() {
@@ -69,11 +73,16 @@ buttons.addEventListener("click", e => {
     if (targetClass === "num") {
         updateInput(targetContent);
     } else if (targetClass === "op") {
-        console.log(targetContent)
+        updateInput(targetContent)
     } else {
         console.log("Not valid")
     }
 })
 
+// Handle clear buttons
+let clear = document.querySelector("#round-button")
+clear.addEventListener("click", e => {
+    clearInput();
+})
+
 getNumberClicked();
-clearInput();

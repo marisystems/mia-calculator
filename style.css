@@ -29,7 +29,7 @@ h1, p {
 }
 
 button {
-    font-size: 32px;
+    font-size: 24px;
     padding: 5px;
     min-width: 35px;
     border: 2px solid black;
@@ -52,7 +52,7 @@ button:hover {
 .calc-container {
     background-color: rgb(203, 203, 182);
     color: black;
-    width: 330px;
+    width: 350px;
     border-radius: 10px;
     padding: 20px 20px;
 }
@@ -87,15 +87,16 @@ button:hover {
 .numbers {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 5px;
     justify-content: center;
+    align-items: center;
     padding: 10px;
 
 }
 
 .row {
     display: flex;
-    gap: 10px
+    gap: 8px
 }
 
 .operators {
@@ -139,4 +140,8 @@ button:hover {
     margin-bottom: -15px;
     font-size: 12px;
     color:#3a373cde
+}
+
+#zero {
+    max-width: 10px;
 }
