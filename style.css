@@ -71,6 +71,12 @@ button:hover {
     background-color: rgb(37, 35, 35);
 }
 
+#input, #output {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100px;
+}
+
 .btn-layout {
     display: flex;
     justify-content: space-evenly;
