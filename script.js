@@ -39,7 +39,10 @@ function updateInput(string) {
     let regexNum = /[0-9]/g 
 
     if (string.match(regexNum)) {
-        console.log("matches!")
+        console.log("match number!")
+        input.textContent += string;
+    } else {
+        console.log("match operator")
         input.textContent += string;
     }
 }
@@ -60,7 +63,6 @@ function getNumberClicked() {
         let target = e.target;
         number = target
     });
-    console.log(number)
 }
 
 // Handle input of numbers and operators
@@ -75,7 +77,7 @@ buttons.addEventListener("click", e => {
     } else if (targetClass === "op") {
         updateInput(targetContent)
     } else {
-        console.log("Not valid")
+        console.log("Not a number or an operator")
     }
 })
 
