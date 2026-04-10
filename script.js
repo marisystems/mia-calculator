@@ -13,7 +13,6 @@ function multiply(a, b) {
 
 function divide(a, b) {
     return a / b;
-    // Round the result
 }
 
 function operate(operator, a, b) {
@@ -35,5 +34,46 @@ function operate(operator, a, b) {
     }
 }
 
-console.log("Hello");
-console.log(operate("divide", 5, 5))
+function updateInput(num) {
+    let input = document.querySelector("#input")
+    console.log(input.textContent)
+    input.textContent += num;
+}
+
+function clearInput() {
+    let input = document.querySelector("#input")
+    input.textContent = "";
+}
+
+// Global variables
+let input = 0;
+
+function getNumberClicked() {
+    console.log("Function called")
+    let numbers = document.querySelector(".numbers");
+    let number = 0;
+    numbers.addEventListener("click", e => {
+        let target = e.target;
+        number = target
+    });
+    console.log(number)
+}
+
+// Handle input of numbers and operators
+let buttons = document.querySelector(".btn-layout");
+buttons.addEventListener("click", e => {
+    let target = e.target;
+    let targetClass = target.getAttribute("class");
+    let targetContent = target.textContent;
+
+    if (targetClass === "num") {
+        updateInput(targetContent);
+    } else if (targetClass === "op") {
+        console.log(targetContent)
+    } else {
+        console.log("Not valid")
+    }
+})
+
+getNumberClicked();
+clearInput();
