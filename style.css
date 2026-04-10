@@ -32,11 +32,16 @@ button {
     font-size: 32px;
     padding: 5px;
     min-width: 35px;
+    border: 2px solid black;
     border-radius: 5px;
     font-family: "JetBrains Mono";
     font-weight: 400;
     color: rgb(243, 239, 239);
     background-color: rgb(67, 60, 53);
+}
+
+button:hover {
+    background-color: #696363;
 }
 
 .content {
@@ -55,9 +60,10 @@ button {
 .display {
     display: flex;
     align-items: center;
+    justify-content:space-between;
     background-color: rgb(78, 89, 95);
     height: 50px;
-    padding: 5px;
+    padding: 5px 10px;
 }
 
 .display-outline {
@@ -90,7 +96,7 @@ button {
     display: flex;
     justify-content: center;
     flex-direction: column;
-    gap: 5px;
+    gap: 10px;
     padding: 10px;
 
 }
