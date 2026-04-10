@@ -35,8 +35,8 @@ button {
     border-radius: 5px;
     font-family: "JetBrains Mono";
     font-weight: 400;
-    color: rgb(232, 229, 229);
-    background-color: rgb(108, 92, 75);
+    color: rgb(243, 239, 239);
+    background-color: rgb(67, 60, 53);
 }
 
 .content {
@@ -53,13 +53,23 @@ button {
 }
 
 .display {
+    display: flex;
+    align-items: center;
     background-color: rgb(78, 89, 95);
     height: 50px;
+    padding: 5px;
+}
+
+.display-outline {
+    padding: 10px;
+    background-color: rgb(37, 35, 35);
 }
 
 .btn-layout {
     display: flex;
     justify-content: space-evenly;
+    background-color: rgba(157, 157, 147, 0.75);
+    border-radius: 5px;
 }
 
 .numbers {
@@ -87,6 +97,19 @@ button {
 
 .stripe {
     background-color: rgb(124, 120, 116);
-    height: 50px;
+    height: 40px;
     margin: 10px -20px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.stripe button {
+    height: 15px;
+    background-color: rgb(175, 170, 162);
+}
+
+#round-button {
+    height: 30px;
+    border-radius: 10px;
 }
