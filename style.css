@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 
 :root {
     --bgColor: #201a24f6;
@@ -16,7 +17,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-family: "Work Sans";
+    font-family: "JetBrains Mono";
     background-color: var(--bgColor);
     color: var(--txtColor);
 }
@@ -24,35 +25,35 @@ body {
 h1, p {
     text-align: center;
     margin-top: 5px;
+    margin-bottom: 10px
 }
 
 button {
-    font-size: 16px;
+    font-size: 32px;
     padding: 5px;
-    min-width: 25px;
+    min-width: 35px;
+    border-radius: 5px;
+    font-family: "JetBrains Mono";
+    font-weight: 400;
+    color: rgb(232, 229, 229);
+    background-color: rgb(108, 92, 75);
 }
 
 .content {
-    background-color: rgb(22, 21, 21);
     margin: 50px;
+    margin-top: 100px;
 }
 
 .calc-container {
     background-color: rgb(203, 203, 182);
     color: black;
-    width: 300px;
-    
+    width: 330px;
     border-radius: 10px;
-}
-
-.calc-btn {
-    background-color: yellowgreen;
-    width: 20px;
-    height: 20px;
+    padding: 20px 20px;
 }
 
 .display {
-    background-color: aquamarine;
+    background-color: rgb(78, 89, 95);
     height: 50px;
 }
 
@@ -64,10 +65,15 @@ button {
 .numbers {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 10px;
     justify-content: center;
     padding: 10px;
-    background-color: green;
+
+}
+
+.row {
+    display: flex;
+    gap: 10px
 }
 
 .operators {
@@ -76,5 +82,11 @@ button {
     flex-direction: column;
     gap: 5px;
     padding: 10px;
-    background-color: rgb(57, 48, 131);
+
+}
+
+.stripe {
+    background-color: rgb(124, 120, 116);
+    height: 50px;
+    margin: 10px -20px;
 }
