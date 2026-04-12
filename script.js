@@ -1,3 +1,8 @@
+// Global variables
+let firstNumber = 0;
+let secondNumber = 0;
+let operatorPressed = false;
+
 // Functions for the operations
 function add(a, b) {
     return a + b;
@@ -36,14 +41,44 @@ function operate(operator, a, b) {
 
 function updateInput(string) {
     let input = document.querySelector("#input")
+    // Only numbers
     let regexNum = /[0-9]/g 
+    // Only =
+    let regexEq = /[=]/g
 
     if (string.match(regexNum)) {
         console.log("match number!")
         input.textContent += string;
-    } else {
+
+        if (operatorPressed) {
+            secondNumber = input.textContent;
+        } else {
+            firstNumber = input.textContent;
+        }
+
+        console.log(`First num: ${firstNumber}`)
+        console.log(`Second num: ${secondNumber}`)
+
+    // =
+    } else if (string.match(regexEq)) {
+        console.log("match equals");
+        console.log(input);
+    }
+    // +-*/
+    else {
         console.log("match operator")
         input.textContent += string;
+        operatorPressed = true;
+        console.log(input);
+
+        /* Write some logic to change from the
+        First number to the seconbd number here
+
+        1. Change from firstNumber to secondNumber
+
+
+        */
+        
     }
 }
 
@@ -52,13 +87,11 @@ function clearInput() {
     input.textContent = "";
 }
 
-// Global variables
-let input = 0;
-
 function getNumberClicked() {
     console.log("Function called")
     let numbers = document.querySelector(".numbers");
     let number = 0;
+    
     numbers.addEventListener("click", e => {
         let target = e.target;
         number = target
@@ -88,3 +121,4 @@ clear.addEventListener("click", e => {
 })
 
 getNumberClicked();
+console.log(firstNumber)
