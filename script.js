@@ -4,6 +4,8 @@ let secondNumberStr = "";
 let operatorStorage = "";
 let operatorPressed = false;
 let operatorPressedTwice = false;
+let equalsPressed = false;
+let result = "";
 
 // Functions for the operations
 function add(a, b) {
@@ -52,19 +54,24 @@ function operate(operator, a, b) {
 // Separate numbers and operators event handling for simplicity
 
 
-let input = document.querySelector(".calc-container");
-input.addEventListener("click", e => {
+let handleInput = document.querySelector(".calc-container");
+let input = document.querySelector("#input");
+let output = document.querySelector("#output");
+
+handleInput.addEventListener("click", e => {
     let target = e.target;
     let value = target.textContent;
     
     // Handle clear
     if (target.classList[0] == "clear") {
-        console.log("Clear");
+        input.textContent = "";
+        output.textContent = "";
         operatorStorage = "";
         operatorPressed = false;
         operatorPressedTwice = false;
         firstNumberStr = "";
         secondNumberStr = "";
+        input.textContent = "";
     }
 
     // Handle numbers
@@ -73,12 +80,19 @@ input.addEventListener("click", e => {
         // If operator not pressed append to first num
         // else append to second number
         // limit to only one operator
+        if (equalsPressed) {
+            input.textContent = "";
+        }
+
+        equalsPressed = false;
+
         if (!operatorPressed) {
             firstNumberStr += value;
         } else {
             secondNumberStr += value;
         }
 
+        input.textContent += value;
         console.log(`First num: ${firstNumberStr}`);
         console.log(`Second Num: ${secondNumberStr}`);
         
@@ -91,6 +105,7 @@ input.addEventListener("click", e => {
             console.log("Operating")
             console.log(value);
             firstNumberStr = operate(value, + firstNumberStr, + secondNumberStr);
+            input.textContent =  firstNumberStr
             secondNumberStr = "";
             operatorPressedTwice = false;
         }
@@ -98,12 +113,19 @@ input.addEventListener("click", e => {
         if (operatorPressed) {
             operatorPressedTwice = true;
         }
+
+        input.textContent += value;
     
         // Handle equals
     } else if (target.classList[0] == "equals") {
-        console.log(operate(operatorStorage, +firstNumberStr, +secondNumberStr))
+        result = operate(operatorStorage, +firstNumberStr, +secondNumberStr);
+        output.textContent = result
+        operatorStorage = "";
+        operatorPressed = false;
+        operatorPressedTwice = false;
+        firstNumberStr = "";
+        secondNumberStr = "";
+        equalsPressed = true;
     }
     
 });
-
-console.log(operate("*", 5, 2))
