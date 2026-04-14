@@ -1,7 +1,9 @@
 // Global variables
-let firstNumber = 0;
-let secondNumber = 0;
+let firstNumberStr = "";
+let secondNumberStr = "";
+let operatorStorage = "";
 let operatorPressed = false;
+let operatorPressedTwice = false;
 
 // Functions for the operations
 function add(a, b) {
@@ -22,16 +24,16 @@ function divide(a, b) {
 
 function operate(operator, a, b) {
     switch(operator) {
-        case "add":
+        case "+":
             return add(a,b)
             break;
-        case "subtract":
+        case "-":
             return subtract(a,b)
             break;
-        case "multiply":
+        case "*":
             return multiply(a,b)
             break;
-        case "divide":
+        case "/":
             return divide(a,b)
             break;
         default:
@@ -39,86 +41,69 @@ function operate(operator, a, b) {
     }
 }
 
-function updateInput(string) {
-    let input = document.querySelector("#input")
-    // Only numbers
-    let regexNum = /[0-9]/g 
-    // Only =
-    let regexEq = /[=]/g
 
-    if (string.match(regexNum)) {
-        console.log("match number!")
-        input.textContent += string;
+/* Outline of program
+1. Get the first number pressed at the keys
+1.1 If an operator is pressed, get the second number
+1.3 Store them at firstNumber and secondNumber
 
-        if (operatorPressed) {
-            secondNumber = input.textContent;
+*/
+
+// Separate numbers and operators event handling for simplicity
+
+
+let input = document.querySelector(".calc-container");
+input.addEventListener("click", e => {
+    let target = e.target;
+    let value = target.textContent;
+    
+    // Handle clear
+    if (target.classList[0] == "clear") {
+        console.log("Clear");
+        operatorStorage = "";
+        operatorPressed = false;
+        operatorPressedTwice = false;
+        firstNumberStr = "";
+        secondNumberStr = "";
+    }
+
+    // Handle numbers
+    if (target.classList[0] == "num") {
+
+        // If operator not pressed append to first num
+        // else append to second number
+        // limit to only one operator
+        if (!operatorPressed) {
+            firstNumberStr += value;
         } else {
-            firstNumber = input.textContent;
+            secondNumberStr += value;
         }
 
-        console.log(`First num: ${firstNumber}`)
-        console.log(`Second num: ${secondNumber}`)
-
-    // =
-    } else if (string.match(regexEq)) {
-        console.log("match equals");
-        console.log(input);
-    }
-    // +-*/
-    else {
-        console.log("match operator")
-        input.textContent += string;
-        operatorPressed = true;
-        console.log(input);
-
-        /* Write some logic to change from the
-        First number to the seconbd number here
-
-        1. Change from firstNumber to secondNumber
-
-
-        */
+        console.log(`First num: ${firstNumberStr}`);
+        console.log(`Second Num: ${secondNumberStr}`);
         
-    }
-}
+        // Handle operators
+    } else if (target.classList[0] == "op") {
+        operatorStorage = value;
+        operatorPressed = true;
 
-function clearInput() {
-    let input = document.querySelector("#input")
-    input.textContent = "";
-}
+        if (operatorPressedTwice) {
+            console.log("Operating")
+            console.log(value);
+            firstNumberStr = operate(value, + firstNumberStr, + secondNumberStr);
+            secondNumberStr = "";
+            operatorPressedTwice = false;
+        }
 
-function getNumberClicked() {
-    console.log("Function called")
-    let numbers = document.querySelector(".numbers");
-    let number = 0;
+        if (operatorPressed) {
+            operatorPressedTwice = true;
+        }
     
-    numbers.addEventListener("click", e => {
-        let target = e.target;
-        number = target
-    });
-}
-
-// Handle input of numbers and operators
-let buttons = document.querySelector(".btn-layout");
-buttons.addEventListener("click", e => {
-    let target = e.target;
-    let targetClass = target.getAttribute("class");
-    let targetContent = target.textContent;
-
-    if (targetClass === "num") {
-        updateInput(targetContent);
-    } else if (targetClass === "op") {
-        updateInput(targetContent)
-    } else {
-        console.log("Not a number or an operator")
+        // Handle equals
+    } else if (target.classList[0] == "equals") {
+        console.log(operate(operatorStorage, +firstNumberStr, +secondNumberStr))
     }
-})
+    
+});
 
-// Handle clear buttons
-let clear = document.querySelector("#round-button")
-clear.addEventListener("click", e => {
-    clearInput();
-})
-
-getNumberClicked();
-console.log(firstNumber)
+console.log(operate("*", 5, 2))
