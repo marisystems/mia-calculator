@@ -22,6 +22,7 @@ function multiply(a, b) {
 
 function divide(a, b) {
     return a / b;
+
 }
 
 function operate(operator, a, b) {
@@ -93,33 +94,61 @@ handleInput.addEventListener("click", e => {
         }
 
         input.textContent += value;
-        console.log(`First num: ${firstNumberStr}`);
-        console.log(`Second Num: ${secondNumberStr}`);
-        
-        // Handle operators
-    } else if (target.classList[0] == "op") {
-        operatorStorage = value;
-        operatorPressed = true;
 
-        if (operatorPressedTwice) {
-            console.log("Operating")
-            console.log(value);
-            firstNumberStr = operate(value, + firstNumberStr, + secondNumberStr);
-            input.textContent =  firstNumberStr
-            secondNumberStr = "";
-            operatorPressedTwice = false;
-        }
+    // Handle operators
+    } else if (target.classList[0] == "op") {
 
         if (operatorPressed) {
             operatorPressedTwice = true;
         }
 
+        if (operatorPressedTwice) {
+            let result = operate(operatorStorage, + firstNumberStr, + secondNumberStr);
+            if (result != Infinity) {
+                firstNumberStr = result
+                input.textContent =  firstNumberStr
+                secondNumberStr = "";
+                operatorPressedTwice = false;
+            } else {
+                output.textContent = "Nu uh :)"
+                operatorStorage = "";
+                
+                operatorPressed = false;
+                operatorPressedTwice = false;
+                firstNumberStr = "";
+                secondNumberStr = "";
+            }
+            
+        }
+
+        if (!operatorPressedTwice) {
+            console.log("Stored")
+            operatorStorage = value;
+        }
+
         input.textContent += value;
+        operatorPressed = true;
+
     
         // Handle equals
     } else if (target.classList[0] == "equals") {
+
+        if (firstNumberStr == "" || secondNumberStr == "") {
+            operatorStorage = "";
+            operatorPressed = false;
+            operatorPressedTwice = false;
+            firstNumberStr = "";
+            secondNumberStr = "";
+            equalsPressed = true;
+        }
+
         result = operate(operatorStorage, +firstNumberStr, +secondNumberStr);
-        output.textContent = result
+        if (result == Infinity) {
+            output.textContent = "Nu uh :)";
+        } else {
+            output.textContent = result
+        }
+        
         operatorStorage = "";
         operatorPressed = false;
         operatorPressedTwice = false;
@@ -127,5 +156,15 @@ handleInput.addEventListener("click", e => {
         secondNumberStr = "";
         equalsPressed = true;
     }
+
+    // Debugging
+    console.log("----")
+    console.log(`First num: ${firstNumberStr}`);
+    console.log(`Second Num: ${secondNumberStr}`);
+    console.log("----")
+    console.log(`OP Pressed: ${operatorPressed}`)
+    console.log(`OP Pressed Twice: ${operatorPressedTwice}`)
+    console.log(`OP Storage: ${operatorStorage}`)
     
 });
+
