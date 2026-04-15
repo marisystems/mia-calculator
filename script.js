@@ -58,7 +58,7 @@ function operate() {
     }
 }
 
-function clear(inputText="", outputText="", equalsPressed = false) {
+function updateStates(inputText="", outputText="", equalsPressed = false) {
     // input and output below is for handling default parameters
     input.textContent = inputText;
     output.textContent = outputText;
@@ -71,6 +71,7 @@ function clear(inputText="", outputText="", equalsPressed = false) {
     // Number
     numObj.firstNum = "";
     numObj.secondNum = "";
+    numObj.result = "";
     numObj.equalsPressed = equalsPressed
 }
 
@@ -89,12 +90,11 @@ handleInput.addEventListener("click", e => {
     
     // Handle clear
     if (target.classList[0] == "clear") {
-        clear();
+        updateStates();
     }
 
     // Handle numbers
     if (target.classList[0] == "num") {
-
 
         if (opObj.equalsPressed) {
             input.textContent = "";
@@ -121,17 +121,16 @@ handleInput.addEventListener("click", e => {
         }
 
         if (opObj.opPressedTwice) {
-            let result = operate()
-
-            if (result != Infinity) {
-                numObj.firstNum = result
+            // Rework this below
+            numObj.result = operate()
+            if (numObj.result != Infinity) {
+                numObj.firstNum = numObj.result
                 input.textContent =  numObj.firstNum
                 numObj.secondNum = "";
                 opObj.opPressedTwice = false;
             } else {
-                clear("", "Nu uh :)")
-            }
-            
+                updateStates("", "Nu uh :)")
+            }   
         }
 
         if (!opObj.opPressedTwice) {
@@ -145,19 +144,18 @@ handleInput.addEventListener("click", e => {
     } else if (target.classList[0] == "equals") {
 
         if (numObj.firstNum == "" || numObj.secondNum == "") {
-            clear("","Invalid Operation", true)
+            updateStates("","Invalid Operation", true)
         }
 
-        result = operate(operatorStorage, +firstNumberStr, +secondNumberStr);
+        numObj.result = operate();
 
-        if (result == Infinity) {
-            output.textContent = "Nu uh :)";
+        if (numObj.result == Infinity) {
+            updateStates("", "Nu uh :)", true)
         } else {
-            output.textContent = result
+            updateStates("", numObj.result, true)
         }
-        clear("","", true)
+        
     }
-
 });
 
 console.table(opObj);
