@@ -13,23 +13,10 @@ let numObj = {
     result: "",
 }
 
-// Functions for the operations
-function add(a, b) {
-    return a + b;
-}
-
-function subtract(a, b) {
-    return a - b;
-}
-
-function multiply(a, b) {
-    return a * b;
-}
-
-function divide(a, b) {
-    return a / b;
-
-}
+let add      = (a, b) => a + b;
+let subtract = (a, b) => a - b;
+let divide   = (a, b) => a / b;
+let multiply = (a, b) => a * b;
 
 function operate() {
     /* The logic below makes it dependnat on the state of the objects
@@ -74,11 +61,6 @@ function updateStates(inputText="", outputText="", equalsPressed = false) {
     numObj.result = "";
     numObj.equalsPressed = equalsPressed
 }
-
-function storeNumber() {
-
-}
-
 
 let handleInput = document.querySelector(".calc-container");
 let input = document.querySelector("#input");
@@ -154,10 +136,8 @@ handleInput.addEventListener("click", e => {
         } else {
             updateStates("", numObj.result, true)
         }
-        
     }
 });
 
 console.table(opObj);
 console.table(numObj);
-
