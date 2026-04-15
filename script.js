@@ -1,11 +1,17 @@
-// Global variables
-let firstNumberStr = "";
-let secondNumberStr = "";
-let operatorStorage = "";
-let operatorPressed = false;
-let operatorPressedTwice = false;
-let equalsPressed = false;
-let result = "";
+// Try to use an object for flow instead of global variables
+let opObj = {
+    opStorage: "",
+    opPressed: false,
+    opPressed: false,
+    opPressedTwice: false,
+    equalsPressed: false,
+}
+
+let numObj = {
+    firstNum: "",
+    secondNum: "",
+    result: "",
+}
 
 // Functions for the operations
 function add(a, b) {
@@ -25,7 +31,15 @@ function divide(a, b) {
 
 }
 
-function operate(operator, a, b) {
+function operate() {
+    /* The logic below makes it dependnat on the state of the objects
+        I think its easier for dealing with events than setting hard values
+        when calling the function
+    */
+    let operator = opObj.opStorage;
+    let a = Number(numObj.firstNum);
+    let b = Number(numObj.secondNum);
+
     switch(operator) {
         case "+":
             return add(a,b)
@@ -44,15 +58,25 @@ function operate(operator, a, b) {
     }
 }
 
+function clear(inputText="", outputText="", equalsPressed = false) {
+    // input and output below is for handling default parameters
+    input.textContent = inputText;
+    output.textContent = outputText;
+    
+    // Operator
+    opObj.opStorage = "";
+    opObj.opPressed = false;
+    opObj.opPressedTwice = false;
+    
+    // Number
+    numObj.firstNum = "";
+    numObj.secondNum = "";
+    numObj.equalsPressed = equalsPressed
+}
 
-/* Outline of program
-1. Get the first number pressed at the keys
-1.1 If an operator is pressed, get the second number
-1.3 Store them at firstNumber and secondNumber
+function storeNumber() {
 
-*/
-
-// Separate numbers and operators event handling for simplicity
+}
 
 
 let handleInput = document.querySelector(".calc-container");
@@ -65,32 +89,26 @@ handleInput.addEventListener("click", e => {
     
     // Handle clear
     if (target.classList[0] == "clear") {
-        input.textContent = "";
-        output.textContent = "";
-        operatorStorage = "";
-        operatorPressed = false;
-        operatorPressedTwice = false;
-        firstNumberStr = "";
-        secondNumberStr = "";
-        input.textContent = "";
+        clear();
     }
 
     // Handle numbers
     if (target.classList[0] == "num") {
 
-        // If operator not pressed append to first num
-        // else append to second number
-        // limit to only one operator
-        if (equalsPressed) {
+
+        if (opObj.equalsPressed) {
             input.textContent = "";
         }
 
-        equalsPressed = false;
-
-        if (!operatorPressed) {
-            firstNumberStr += value;
+        // If operator not pressed append to first num
+        // else append to second number
+        // limit to only one operator
+        if (!opObj.opPressed) {
+            numObj.firstNum += value;
+            console.log(numObj.firstNum);
         } else {
-            secondNumberStr += value;
+            numObj.secondNum += value;
+            console.log(numObj.secondNum);
         }
 
         input.textContent += value;
@@ -98,73 +116,50 @@ handleInput.addEventListener("click", e => {
     // Handle operators
     } else if (target.classList[0] == "op") {
 
-        if (operatorPressed) {
-            operatorPressedTwice = true;
+        if (opObj.opPressed) {
+            opObj.opPressedTwice = true;
         }
 
-        if (operatorPressedTwice) {
-            let result = operate(operatorStorage, + firstNumberStr, + secondNumberStr);
+        if (opObj.opPressedTwice) {
+            let result = operate()
+
             if (result != Infinity) {
-                firstNumberStr = result
-                input.textContent =  firstNumberStr
-                secondNumberStr = "";
-                operatorPressedTwice = false;
+                numObj.firstNum = result
+                input.textContent =  numObj.firstNum
+                numObj.secondNum = "";
+                opObj.opPressedTwice = false;
             } else {
-                output.textContent = "Nu uh :)"
-                operatorStorage = "";
-                
-                operatorPressed = false;
-                operatorPressedTwice = false;
-                firstNumberStr = "";
-                secondNumberStr = "";
+                clear("", "Nu uh :)")
             }
             
         }
 
-        if (!operatorPressedTwice) {
-            console.log("Stored")
-            operatorStorage = value;
+        if (!opObj.opPressedTwice) {
+            opObj.opStorage = value;
         }
 
         input.textContent += value;
-        operatorPressed = true;
-
+        opObj.opPressed = true;
     
         // Handle equals
     } else if (target.classList[0] == "equals") {
 
-        if (firstNumberStr == "" || secondNumberStr == "") {
-            operatorStorage = "";
-            operatorPressed = false;
-            operatorPressedTwice = false;
-            firstNumberStr = "";
-            secondNumberStr = "";
-            equalsPressed = true;
+        if (numObj.firstNum == "" || numObj.secondNum == "") {
+            clear("","Invalid Operation", true)
         }
 
         result = operate(operatorStorage, +firstNumberStr, +secondNumberStr);
+
         if (result == Infinity) {
             output.textContent = "Nu uh :)";
         } else {
             output.textContent = result
         }
-        
-        operatorStorage = "";
-        operatorPressed = false;
-        operatorPressedTwice = false;
-        firstNumberStr = "";
-        secondNumberStr = "";
-        equalsPressed = true;
+        clear("","", true)
     }
 
-    // Debugging
-    console.log("----")
-    console.log(`First num: ${firstNumberStr}`);
-    console.log(`Second Num: ${secondNumberStr}`);
-    console.log("----")
-    console.log(`OP Pressed: ${operatorPressed}`)
-    console.log(`OP Pressed Twice: ${operatorPressedTwice}`)
-    console.log(`OP Storage: ${operatorStorage}`)
-    
 });
+
+console.table(opObj);
+console.table(numObj);
 
